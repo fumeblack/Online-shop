@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <style>
+        /* Basic styling for the cart */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header, .footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .header h2, .footer-bottom {
+            margin: 0;
+            font-size: 1.5em;
+        }
+
+        .main {
+            padding: 20px;
+        }
+
+        .cart-items {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .cart-item img {
+            width: 50px;
+            height: auto;
+            margin-right: 10px;
+        }
+
+        .cart-item-name {
+            font-weight: bold;
+        }
+
+        .cart-item-price {
+            margin-left: auto;
+        }
+
+        .side {
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
+
+        .footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-section {
+    flex: 1;
+    padding: 0 20px;
+    margin-bottom: 20px;
+}
+
+.footer-section h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+
+.footer-section p, .footer-section ul {
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.footer-section ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    display: inline-block;
+    position: relative;
+}
+
+.footer-section ul li a:hover {
+    color: #aaa;
+}
+
+.footer-section ul li a:before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: #fff;
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.3s ease;
+}
+
+.footer-section ul li a:hover:before {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+.footer-section ul li a i {
+    margin-right: 5px;
+}
+
+.footer-section.social ul li a i {
+    font-size: 1.2rem;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid #555;
+    font-size: 0.8rem;
+}
+
+        /* Product details section */
+        .product-details {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+        }
+
+        .product-details h3 {
+            margin-top: 0;
+            font-size: 1.2em;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 5px;
+        }
+
+        .product-details ul {
+            padding: 0;
+            list-style-type: none;
+        }
+
+        .product-details li {
+            margin-bottom: 5px;
+        }
+
+        .payment-methods {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin-top: 50px;
+        }
+
+        .payment-method {
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .payment-method:hover {
+            transform: scale(1.1); /* Scale up on hover */
+        }
+
+        .payment-method img {
+            width: 80px;
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+        .payment-method span {
+            display: block;
+            font-weight: bold;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .payment-methods {
+                flex-direction: column;
+            }
+
+            .payment-method {
+                margin-bottom: 20px;
+            }
+        }
+
+        .btn {
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-right: 5px;
+        }
+
+        .btn:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Header -->
+    <div class="header">
+        <h2>Shopping Cart</h2>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main">
+        <ul class="cart-items" id="cart-items">
+            <!-- Cart items will be dynamically added here -->
+        </ul>
+        <div class="cart-total" id="cart-total">
+            Total: $0.00
+        </div>
+        <div class="cart-actions">
+            <button class="btn" onclick="clearCart()">Clear Cart</button>
+            <button class="btn" onclick="checkout()">Checkout</button>
+        </div>
+
+        <!-- Product details section -->
+        <div class="product-details" id="product-details">
+            <h3>Product Details</h3>
+            <ul id="product-details-list">
+                <!-- Product details will be dynamically added here -->
+            </ul>
+        </div>
+
+        <!-- Payment Methods -->
+        <div class="payment-methods">
+            <div class="payment-method mpesa" onclick="handlePayment('Mpesa')">
+                <img src="icons8-mpesa-240.png" alt="M-Pesa">
+                <span>M-Pesa</span>
+            </div>
+            <div class="payment-method paypal" onclick="handlePayment('PayPal')">
+                <img src="icons8-paypal-240.png" alt="PayPal">
+                <span>PayPal</span>
+            </div>
+            <div class="payment-method apple-pay" onclick="handlePayment('Apple Pay')">
+                <img src="icons8-apple-pay-256.png" alt="Apple Pay">
+                <span>Apple Pay</span>
+            </div>
+            <div class="payment-method credit-card" onclick="handlePayment('Credit Card')">
+                <img src="icons8-mastercard-240.png" alt="Credit Card">
+                <span>Credit Card</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Side Content -->
+    <div class="side">
+        <!-- Side content, e.g., summary, promotions -->
+        <h3>Cart Summary</h3>
+        <p>Subtotal: <span id="subtotal">$0.00</span></p>
+        <p>Shipping: Free</p>
+        <p>Total: <span id="side-total">$0.00</span></p>
+    </div>
+</div>
+
+<!-- Footer -->
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-section about">
+            <h3>About BlackBrave</h3>
+            <p>BlackBrave is a modern fashion store celebrating African heritage through contemporary designs and styles. Discover unique clothing that blends cultural richness with modern trends.</p>
+        </div>
+        <div class="footer-section contact">
+            <h3>Contact Information</h3>
+            <p>Email: info@blackbrave.com</p>
+            <p>Phone: +254700372558</p>
+        </div>
+        <div class="footer-section links">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="product2.html">Shop</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact (6).html">Contact</a></li>
+            </ul>
+        </div>
+        <div class="footer-section social">
+            <h3>Follow Us</h3>
+            <ul>
+                <li><a href="#"><i class="fab fa-facebook"></i> Facebook</a></li>
+                <li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
+                <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        &copy; 2024 BlackBrave. All rights reserved.
+    </div>
+</footer>
+
+
+<script>
+    // Function to handle different payment methods
+    function handlePayment(method) {
+        switch (method) {
+            case 'Mpesa':
+                promptMpesaDetails();
+                break;
+            case 'PayPal':
+                promptPayPalDetails();
+                break;
+            case 'Apple Pay':
+                promptApplePayDetails();
+                break;
+            case 'Credit Card':
+                promptCreditCardDetails();
+                break;
+            default:
+                alert('Unsupported payment method');
+                break;
+        }
+    }
+    
+    // Simulate prompting for payment details
+    function promptMpesaDetails() {
+        alert('Please enter your M-Pesa details.');
+        // Simulate payment processing
+        processPayment('Mpesa');
+    }
+    
+    function promptPayPalDetails() {
+        alert('Please enter your PayPal details.');
+        // Simulate payment processing
+        processPayment('PayPal');
+    }
+    
+    function promptApplePayDetails() {
+        alert('Please enter your Apple Pay details.');
+        // Simulate payment processing
+        processPayment('Apple Pay');
+    }
+    
+    function promptCreditCardDetails() {
+        alert('Please enter your Credit Card details.');
+        // Simulate payment processing
+        processPayment('Credit Card');
+    }
+    
+    // Simulate payment processing
+    function processPayment(method) {
+        fetch(`/process_payment?method=${method}`)
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error('Network response was not ok.');
+            })
+            .then(data => {
+                // Process payment response
+                if (data.success) {
+                    alert('Payment successful!');
+                    // Clear the cart after successful payment
+                    clearCart();
+                } else {
+                    alert('Payment failed. Insufficient funds or other issue.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error processing payment. Please try again later.');
+            });
+    }
+    
+    // JavaScript for managing the cart
+    const products = [
+        { id: 1, name: 'Vintage Shirt', price: 25.00, image: 'https://via.placeholder.com/50x50?text=Shirt' },
+        { id: 2, name: 'Smartwatch', price: 150.00, image: 'https://via.placeholder.com/50x50?text=Watch' },
+        { id: 3, name: 'African Theme Handbag', price: 80.00, image: 'https://via.placeholder.com/50x50?text=Handbag' }
+    ];
+    
+    function displayCart() {
+        const cartItemsElement = document.getElementById('cart-items');
+        const cartTotalElement = document.getElementById('cart-total');
+        const subtotalElement = document.getElementById('subtotal');
+        const sideTotalElement = document.getElementById('side-total');
+        const productDetailsList = document.getElementById('product-details-list');
+    
+        let cartItemsHTML = '';
+        let total = 0;
+    
+        // Clear previous product details
+        productDetailsList.innerHTML = '';
+    
+        // Loop through items in cart and calculate total
+        cart.forEach(item => {
+            total += item.price;
+            cartItemsHTML += `
+                <li class="cart-item">
+                    <img src="${item.image}" alt="${item.name}">
+                    <span class="cart-item-name">${item.name}</span>
+                    <span class="cart-item-price">$${item.price.toFixed(2)}</span>
+                </li>
+            `;
+    
+            // Add product details to the details section
+            const productDetailsHTML = `
+                <li>
+                    <strong>${item.name}</strong> - $${item.price.toFixed(2)}
+                </li>
+            `;
+            productDetailsList.innerHTML += productDetailsHTML;
+        });
+    
+        // Update HTML content
+        cartItemsElement.innerHTML = cartItemsHTML;
+        cartTotalElement.textContent = `Total: $${total.toFixed(2)}`;
+        subtotalElement.textContent = `$${total.toFixed(2)}`;
+        sideTotalElement.textContent = `$${total.toFixed(2)}`;
+    }
+    
+    // Function to add item to cart
+    function addToCart(productIndex) {
+        const selectedProduct = products[productIndex];
+        cart.push(selectedProduct);
+        displayCart();
+    }
+    
+    // Function to clear the cart
+    function clearCart() {
+        cart = [];
+        displayCart();
+    }
+    
+    // Function to simulate checkout
+    function checkout() {
+        if (cart.length === 0) {
+            alert('Your cart is empty. Please add items before checking out.');
+            return;
+        }
+        alert('Please select a payment method.');
+    }
+    
+    // Sample cart array
+    let cart = [];
+    
+    // Display initial cart
+    displayCart();
+    </script>
+    

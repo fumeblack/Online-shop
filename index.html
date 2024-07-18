@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webpage Layout with Footer Slider</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        header {
+            height: 300px;
+            background: #333;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+            color: #fff;
+            overflow: hidden;
+        }
+
+        .logo {
+            width: 100px;
+            height: 100px;
+            background: #fff;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            z-index: 10;
+            margin-bottom: 20px;
+        }
+
+        .logo img {
+            width: 80px;
+            height: 80px;
+        }
+
+        .central-image {
+            width: 100px;
+            height: 100px;
+            background: #fff;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 5;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            position: relative;
+        }
+
+        .central-image img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+        }
+
+        .rotating-images {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            animation: rotate 10s linear infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .rotating-images img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        .img1 { transform: rotate(0deg) translateX(100px) rotate(0deg); }
+        .img2 { transform: rotate(60deg) translateX(100px) rotate(-60deg); }
+        .img3 { transform: rotate(120deg) translateX(100px) rotate(-120deg); }
+        .img4 { transform: rotate(180deg) translateX(100px) rotate(-180deg); }
+        .img5 { transform: rotate(240deg) translateX(100px) rotate(-240deg); }
+        .img6 { transform: rotate(300deg) translateX(100px) rotate(-300deg); }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .zigzag-text {
+            position: absolute;
+            top: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: zigzag 4s linear infinite;
+            white-space: nowrap;
+            z-index: 5;
+        }
+
+        @keyframes zigzag {
+            0% { transform: translate(-50%, 0); }
+            25% { transform: translate(-50%, 20px); }
+            50% { transform: translate(-50%, 0); }
+            75% { transform: translate(-50%, -20px); }
+            100% { transform: translate(-50%, 0); }
+        }
+
+        .menu {
+            position: relative;
+            width: 100%;
+            background: #222;
+            display: flex;
+            overflow: hidden;
+            padding: 10px 0;
+            justify-content: center;
+        }
+        
+        .menu ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .menu ul li {
+            margin: 0 10px;
+        }
+        
+        .menu ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 5px 10px;
+        }
+        
+        .menu ul li a:hover {
+            background-color: #555;
+        }
+
+        .menu .menu-item {
+            margin: 0 10px;
+            padding: 10px 20px;
+            color: #fff;
+            background: #444;
+            border-radius: 10px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: inset 0 0 5px rgba(255,255,255,0.3), 0 4px 8px rgba(0,0,0,0.2);
+            transform: perspective(500px) rotateX(0deg) rotateY(0deg) scale(1);
+        }
+
+        .menu .menu-item:hover {
+            background: #555;
+            box-shadow: inset 0 0 10px rgba(255,255,255,0.5), 0 8px 16px rgba(0,0,0,0.3);
+            transform: perspective(500px) rotateX(-10deg) rotateY(10deg) scale(1.1);
+        }
+
+        .navbar {
+            background-color: #333;
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+        }
+
+        .navbar ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .navbar li {
+            margin-right: 20px;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+            padding: 10px;
+        }
+
+        .cart-icon {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .cart-icon img {
+            width: 30px;
+            height: auto;
+            margin-left: 10px;
+        }
+
+
+        .central-image {
+            width: 100px;
+            height: 100px;
+            background: #fff;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            position: relative;
+        }
+
+        .central-image img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+        }
+
+        .rotating-images {
+            display: flex;
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            animation: rotate 10s linear infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .rotating-images img {
+            width: 95px;
+            height: 95px;
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        .img1 { transform: rotate(0deg) translateX(100px) rotate(0deg); }
+        .img2 { transform: rotate(60deg) translateX(100px) rotate(-60deg); }
+        .img3 { transform: rotate(120deg) translateX(100px) rotate(-120deg); }
+        .img4 { transform: rotate(180deg) translateX(100px) rotate(-180deg); }
+        .img5 { transform: rotate(240deg) translateX(100px) rotate(-240deg); }
+        .img6 { transform: rotate(300deg) translateX(100px) rotate(-300deg); }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+
+        main {
+            flex: 1;
+            display: flex;
+            padding: 20px;
+            background: #e0e0e0;
+        }
+
+        .main-content {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .product {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background: #f9f9f9;
+            position: relative;
+        }
+
+        .product img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        .product-title {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+
+        .cart-icon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
+
+        .product-info {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        aside {
+            width: 200px;
+            background: #ddd;
+            padding: 20px;
+        }
+
+        .sidebar {
+            width: 300px;
+            background: #333;
+            color: #fff;
+            padding: 20px;
+            position: sticky;
+            top: 20px;
+            height: fit-content;
+        }
+
+        .shop-description {
+            margin-bottom: 20px;
+        }
+
+        .shop-description h2,
+        .shop-description p {
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .shop-description:hover h2,
+        .shop-description:hover p {
+            color: #ff9900; /* Change to your desired hover color */
+            transform: scale(1.1); /* Optional: Scale up the text on hover */
+        }
+
+        .explore-icon {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .explore-icon img {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+        }
+
+        .content {
+            flex: 1;
+            background: #fff;
+            padding: 20px;
+            margin-left: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        footer {
+            background: #222;
+            color: #fff;
+            padding: 20px;
+            position: relative;
+        }
+
+        .slider {
+            width: 80%;
+            overflow: hidden;
+            background: #fff;
+            margin: 0 auto;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .slide-track {
+            display: flex;
+            width: calc(250px * 8);
+            animation: scroll 20s linear infinite;
+        }
+
+        .slide {
+            width: 250px;
+            height: 400px;
+            flex-shrink: 0;
+            margin-right: 10px;
+            text-align: center;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .slide p {
+            margin: 10px 0 0;
+            font-size: 0.9rem;
+            color: #333;
+        }
+
+        .add-to-cart {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #333;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.add-to-cart img {
+    width: 20px; /* Adjust the size of your cart icon */
+    height: auto;
+    margin-right: 5px;
+}
+
+
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(calc(-250px * 4));
+            }
+        }
+
+        footer {
+            background: #333;
+            color: #fff;
+            padding: 20px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .contact-info, .ratings, .shop-icon {
+            flex: 1;
+            margin: 10px;
+            max-width: 300px;
+        }
+
+        .contact-info h3, .ratings h3, .shop-icon h3 {
+            margin-bottom: 10px;
+        }
+
+        .contact-info p {
+            margin: 5px 0;
+        }
+
+        .rating-person {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+        }
+
+        .rating-person img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .stars {
+            display: flex;
+        }
+
+        .star {
+            width: 20px;
+            height: 20px;
+            background: url('https://via.placeholder.com/20x20?text=★') no-repeat center center;
+            background-size: contain;
+            margin-right: 5px;
+        }
+
+        .shop-icon img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: #fff;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="central-image">
+            <img src="logo compamy.jpeg" alt="Store Logo">
+        </div>
+        
+        <div class="zigzag-text">
+            <h3>Welcome to Our Store!</h3>
+            <h4>Best Products at Amazing Prices</h4>
+        </div>
+        
+     
+        
+        <div class="rotating-images">
+            <img src="Corteiz Gutta Green Airmax 95.jpeg" alt="1" class="img1">
+            <img src="airmax 97.jpeg" alt="2" class="img2">
+            <img src="ajax jersey.jpeg" alt="3" class="img3">
+            <img src="nunez.jpeg" alt="4" class="img4">
+            <img src="manchester jersey.jpeg" alt="5" class="img5">
+            <img src="nike boots.jpeg" alt="6" class="img6">
+            <img src="chelsea jersey.jpeg" alt="7" class="img7">
+        
+        </div>
+        
+        <nav class="menu">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="product (1).html">Product</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact (6).html">Contact</a></li>
+            </ul>
+            <div class="cart-icon" onclick="goToCart()">
+                <span>Cart</span>
+                <img src="icons8-add-shopping-cart-60.png" alt="Cart Icon">
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="sidebar">
+            <div class="shop-description">
+                <h2>BlackBrave</h2>
+                <p>Welcome to BlackBrave, where modern fashion meets African inspiration. Our collections celebrate the rich heritage and vibrant culture of Africa, offering unique styles and designs that empower and inspire.</p>
+            </div>
+            
+            <div class="explore-icon" onclick="navigateToProducts()">
+                <img src="icons8-arrow-64.png" alt="Explore Icon">
+                <span>Explore Products</span>
+            </div>
+        </div>
+        <div class="main-content">
+            <div class="section">
+                <h2 class="section-title">Discount Products</h2>
+                <div class="products">
+                    <div class="product">
+                        <img src="smarth.jpeg" alt="Smart Watch">
+                        <div class="cart-icon" onclick="addToCart('Product 1')">
+                            <img src="shopping-cart.png" alt="Add to Cart">
+                        </div>
+                        <h3 class="product-title">Smart watch</h3>
+                        <p class="product-info">Enhance your lifestyle with our latest smartwatch, designed to keep you connected and stylish. Featuring advanced health monitoring, sleek design, and seamless integration with your devices, it's your perfect companion for every occasion.</p>
+                    </div>
+                    <div class="product">
+                        <img src="p9.jpeg" alt="Product 2">
+                        <div class="cart-icon" onclick="addToCart('Product 2')">
+                            <img src="shopping-cart.png" alt="Add to Cart">
+                        </div>
+                    
+                        <h3 class="product-title">Vintage Shirt</h3>
+                        <p class="product-info">Step into timeless style with our vintage shirt collection. Crafted from premium fabrics and featuring classic designs, our shirts evoke a sense of nostalgia while offering comfort and sophistication. Perfect for any occasion, whether you're dressing up or keeping it casual.</p>
+                    </div>
+                    <div class="product">
+                        <img src="top.jpeg" alt="Product 3">
+                        <div class="cart-icon" onclick="addToCart('Product 3')">
+                            <img src="shopping-cart.png" alt="Add to Cart">
+                        </div>
+                        <h3 class="product-title">African Theme Handbag</h3>
+                        <p class="product-info">Embrace cultural elegance with our African-themed handbag. Each piece is meticulously crafted with traditional African motifs and premium materials, blending heritage with contemporary style. Whether you're strolling through the city or attending a special event, this handbag is a statement piece that celebrates artistry and sophistication.</p>
+                    </di>
+                </div>
+            </div>
+        </div>
+    
+        <script>
+            function addToCart(productName) {
+                alert('Added ' + productName + ' to cart!');
+                // You can add more sophisticated cart handling logic here
+            }
+        </script>
+
+       
+    </main>
+
+    <footer>
+        <h2>Featured Products</h2>
+        <div class="slider">
+            <div class="slide-track ">
+                <div class="slide">
+                    <img src="perfume.jpeg" alt="Perfume">
+                    <p><strong>Perfume</strong><br>A luxurious fragrance that combines floral notes with a hint of spice, perfect for any occasion. This perfume offers long-lasting scent and elegance, making it a must-have in your collection.</p>
+                    <button class="add-to-cart" onclick="addToCart('Product Name', X.XX)">
+                        <button class="add-to-cart" onclick="addToCart('Product Name', X.XX)">
+                            <img src="basket.png" alt="Cart Icon"> Add to Cart
+                        </button>
+                    </button>
+                </div>
+                <div class="slide">
+                    <img src="trousers.jpeg" alt="Trouser">
+                    <p><strong>Trouser</strong><br>Stylish and comfortable trousers made from premium materials. Ideal for both casual and formal wear, offering a perfect blend of style and durability for your wardrobe.</p>
+                    <button class="add-to-cart" onclick="addToCart('Product Name', X.XX)">
+                        <img src="basket.png" alt="Cart Icon"> Add to Cart
+                    </button>
+                </div>
+                <div class="slide">
+                    <img src="travis.jpeg" alt="Shoes">
+                    <p><strong>Shoes</strong><br>High-quality leather shoes designed for both comfort and fashion. These shoes feature a sleek design, perfect for daily wear or special occasions, ensuring you step out in style.</p>
+                    <button class="add-to-cart" onclick="addToCart('Product Name', X.XX)">
+                        <img src="basket.png" alt="Cart Icon"> Add to Cart
+                    </button>
+                </div>
+                <div class="slide">
+                    <img src="17.jpeg" alt="Beanies">
+                    <p><strong>Beanies</strong><br>Keep warm and stylish with our cozy beanies. Made from soft, breathable fabric, these beanies are perfect for cold weather and add a chic touch to your outfit.</p>
+                    <button class="add-to-cart" onclick="addToCart('Product Name', X.XX)">
+                        <img src="basket.png" alt="Cart Icon"> Add to Cart
+                    </button>
+                </div>
+                <div class="slide">
+                    <img src="socks (1).jpeg" alt="Socks">
+                    <p><strong>Socks</strong><br>Comfortable and durable socks that provide ultimate comfort for your feet. Available in various colors and patterns, perfect for everyday wear and athletic activities.</p>
+                    <button class="add-to-cart" onclick="addToCart('Product Name', X.XX)">
+                        <img src="basket.png" alt="Cart Icon"> Add to Cart
+                    </button>
+                </div>
+                <div class="slide">
+                    <img src="bag kenyan.jpeg" alt="Handbags">
+                    <p><strong>Handbags</strong><br>Elegant and versatile handbags crafted from high-quality materials. These handbags are designed to complement any outfit, offering ample space and stylish design for your essentials.</p>
+                    <button class="add-to-cart" onclick="addToCart('Product Name', X.XX)">
+                        <img src="basket.png" alt="Cart Icon"> Add to Cart
+                    </button>
+                </div>
+                <div class="slide">
+                    <img src="summers shorts.jpeg" alt="Shorts">
+                    <p><strong>Shorts</strong><br>Comfortable and trendy shorts perfect for summer. Made from lightweight fabric, these shorts provide a perfect fit and are ideal for casual outings and beachwear.</p>
+                    <button class="add-to-cart" onclick="addToCart('Product Name', X.XX)">
+                        <img src="basket.png" alt="Cart Icon"> Add to Cart
+                    </button>
+                </div>
+                <div class="slide">
+                    <img src="kitenge.jpeg" alt="Women Wears">
+                    <p><strong>Women Wears</strong><br>Explore our collection of stylish women’s wear that includes dresses, tops, and more. Designed to enhance your look, our collection combines comfort with modern fashion trends.</p>
+                    <button class="add-to-cart" onclick="addToCart('Product Name', X.XX)">
+                        <img src="basket.png" alt="Cart Icon"> Add to Cart
+                    </button>
+                </div>
+                <!-- Repeating the slides for continuous effect -->
+>
+                <div class="slide">
+                    <img src="three.jpeg" alt="SWEter">
+                    <button class="add-to-cart" onclick="addToCart('Product Name', X.XX)">
+                        <img src="basket.png" alt="Cart Icon"> Add to Cart
+                    </button>
+                    <p><strong>Trouser</strong><br>Stylish and comfortable sweater made from premium materials. Ideal for both casual and formal wear, offering a perfect blend of style and durability for your wardrobe.</p>
+                </div>
+                <div class="slide">
+                    <img src="p9.jpeg" alt="Shirt">
+                    <p><strong>Shoes</strong><br>High-quality vintage shirt designed for both comfort and fashion.feature a sleek design, perfect for daily wear or special occasions, ensuring you step out in style.</p>
+                    <button class="add-to-cart" onclick="addToCart('Product Name', X.XX)">
+                        <img src="basket.png" alt="Cart Icon"> Add to Cart
+                    </button>
+                </div>
+                <div class="slide">
+                    <img src="17.jpeg" alt="Beanies">
+                    <p><strong>Beanies</strong><br>Keep warm and stylish with our cozy beanies. Made from soft, breathable fabric, these beanies are perfect for cold weather and add a chic touch to your outfit.</p>
+                    <button class="add-to-cart" onclick="addToCart('Product Name', X.XX)">
+                        <img src="icons8-add-shopping-cart-60.png" alt="Cart Icon"> Add to Cart
+                    </button>
+                </div>
+                <div class="slide">
+                    <img src="https://via.placeholder.com/250x250?text=Socks" alt="Socks">
+                    <p><strong>Socks</strong><br>Comfortable and durable socks that provide ultimate comfort for your feet. Available in various colors and patterns, perfect for everyday wear and athletic activities.</p>
+                </div>
+                <div class="slide">
+                    <img src="comodos.jpeg" alt="Handbags">
+                    <p><strong>Handbags</strong><br>Elegant and versatile handbags crafted from high-quality materials. These handbags are designed to complement any outfit, offering ample space and stylish design for your essentials.</p>
+                </div>
+                <div class="slide">
+                    <img src="https://via.placeholder.com/250x250?text=Shorts" alt="Shorts">
+                    <p><strong>Shorts</strong><br>Comfortable and trendy shorts perfect for summer. Made from lightweight fabric, these shorts provide a perfect fit and are ideal for casual outings and beachwear.</p>
+                </div>
+                <div class="slide">
+                    <img src="white.jpeg" alt="Women Wears">
+                    <p><strong>Women Wears</strong><br>Explore our collection of stylish women’s wear that includes dresses, tops, and more. Designed to enhance your look, our collection combines comfort with modern fashion trends.</p>
+                </div>
+            </div>
+        </div>
+        <div class="contact-info">
+            <h3>Contact Information</h3>
+            <p>Email: emasonkurgat@gmail.com</p>
+            <p>Phone: +254700372558</p>
+            <p>Address: 01000 eldoret,kenya</p>
+        </div>
+        
+        <div class="ratings">
+            <h3>Customer Ratings</h3>
+            <div class="rating-person" id="person1">
+                <img src="person1.jpeg" alt="Person 1">
+                <div>
+                    <strong>Mercy Olesudori</strong>
+                    <div class="stars" id="stars1"></div>
+                </div>
+            </div>
+            <div class="rating-person" id="person2">
+                <img src="person 2.jpeg" alt="Person 2">
+                <div>
+                    <strong>Resian  Saito</strong>
+                    <div class="stars" id="stars2"></div>
+                </div>
+            </div>
+            <div class="rating-person" id="person3">
+                <img src="person3.jpeg" alt="Person 3">
+                <div>
+                    <strong>Caroline Simiyu</strong>
+                    <div class="stars" id="stars3"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="shop-icon">
+            <h3>Shop Icon</h3>
+            <img src="champion kicks logo.png" alt="Shop Icon">
+        </div>
+    </footer>
+
+    <script>
+        // Array to store items in cart
+        let cartItems = [];
+    
+        // Function to add item to cart
+        function addToCart(productName, price) {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    cart.push({
+        name: productName,
+        price: price
+    });
+    localStorage.setItem('cart', JSON.stringify(cart));
+    alert(`"${productName}" added to cart!`);
+}
+
+    
+        // JavaScript function to navigate to cart page
+        function goToCart() {
+            // Replace with the actual URL of your cart file
+            window.location.href = "working.html";
+        }
+    
+        function getRandomRating() {
+            return Math.floor(Math.random() * 5) + 1;
+        }
+    
+        function generateStars(elementId, rating) {
+            const starsContainer = document.getElementById(elementId);
+            starsContainer.innerHTML = ''; // Clear existing stars
+            for (let i = 0; i < rating; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                starsContainer.appendChild(star);
+            }
+        }
+    
+        const ratings = [
+            { id: 'stars1', rating: getRandomRating() },
+            { id: 'stars2', rating: getRandomRating() },
+            { id: 'stars3', rating: getRandomRating() }
+        ];
+    
+        ratings.forEach(rating => {
+            generateStars(rating.id, rating.rating);
+        });
+    </script>
+    
+     
+    </footer>
+</body>
+</html>
